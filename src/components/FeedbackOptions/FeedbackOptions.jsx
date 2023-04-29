@@ -1,11 +1,12 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import css from './FeedbackOptions.module.css';
 
-export const FeedbackOptions = ( { options, onLeaveFeedback }) => {
+const FeedbackOptions = ( { options, onLeaveFeedback }) => {
     return (
         <ul className={css.feedbackList}>
-            {options.map(option => (
-                <li className={css.feedbackItem} key={option}>
+            {options.map((option, id) => (
+                <li className={css.feedbackItem} key={id} name={option}>
                     <button className={css.feedbackButton} 
                         onClick={() => onLeaveFeedback(option)}>
                         {option}
@@ -17,7 +18,9 @@ export const FeedbackOptions = ( { options, onLeaveFeedback }) => {
 };
 
 FeedbackOptions.propTypes = {
-    options: PropTypes.array.isRequired,
+    options: PropTypes.array,
     onLeaveFeedback: PropTypes.func.isRequired,
 };
+
+export default FeedbackOptions;
 

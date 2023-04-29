@@ -1,47 +1,44 @@
-import React, { Component } from 'react';
-import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
-import { Statistics } from './Statistics/Statistics';
-import { Section } from './Section/Section';
+import React, { useState } from 'react';
+import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
+import Statistics from './Statistics/Statistics';
+import Section from './Section/Section';
 import { Notification } from './Notifications/Notifications';
 import css from './App.module.css';
 
-export class App extends Component {
-  state = {
+const App = () => {
+  
+  const [state, setState] = useState({
     good: 0,
     neutral: 0,
     bad: 0
+  });
+
+  const countTotalFeedback = () =>{
+    return state.good + state.neutral + state.bad;
   };
 
-  countTotalFeedback = () =>{
-    const { good, neutral, bad } = this.state;
-    return good + neutral + bad;
+  const countPositiveFeedbackPercentage = () => {
+    const total = countTotalFeedback();
+    return Math.floor((state.good / total) * 100);
   };
 
-  countPositiveFeedbackPercentage = () => {
-    const {good} = this.state;
-    const total = this.countTotalFeedback();
-    return Math.floor((good / total) * 100);
+  const handleFeedback = option => {
+    setState(previousState => ({
+      ...previousState,
+      [option]: previousState[option] + 1,
+    }));
   };
-
-  handleFeedback = option => {
-    this.setState(previousState => {
-      return {[option]: previousState[option] + 1};
-    });
-    this.countTotalFeedback();
-  };
-
-
-  render() {
-    const { good, neutral, bad } = this.state;
-    const total = this.countTotalFeedback();
-    const percentage = this.countPositiveFeedbackPercentage();
+    
+    const { good, neutral, bad } = state;
+    const total = countTotalFeedback();
+    const percentage = countPositiveFeedbackPercentage();
 
     return (
       <div className={css.container}>
         <Section title='Please leave your feedback'>
           <FeedbackOptions
-          options={Object.keys(this.state)}
-          onLeaveFeedback={option => this.handleFeedback(option)}
+          options={Object.keys(state)}
+          onLeaveFeedback={option => handleFeedback(option)}
           />
         </Section>
         <Section title='Statistics'>
@@ -58,23 +55,9 @@ export class App extends Component {
           )}
         </Section>
         </div>
-    )
-  }
+    );
 
-}
-// } = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101'
-//       }}
-//     >
-//       React homework template
-//     </div>
-//   );
-// };
+
+};
+
+export default App;

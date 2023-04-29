@@ -1,26 +1,19 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import css from './Statistics.module.css';
 
-export const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
+const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
     
-    const Array =[
-        [1, `Good: \t${good}`],
-        [2, `Neutral: ${neutral}`],
-        [3, `Bad: \t${bad}`],
-        [4, `Total: \t${total}`],
-        [5, `Positive feedback: ${positivePercentage}%`],
-    ];
-
-    return (
-    <ul className={css.statisticList}>
-        {Array.map(([id, superString]) => (
-            <li className={css.statisticItem} key={id}>
-                <span className={css.paragraph}>{superString}
-                </span>
-            </li>
-        ))}
-    </ul>
+    return(
+        <ul className={css.statisticList}>
+                <li className={css.statisticItem}> Good:      {good}</li>
+                <li className={css.statisticItem}> Neutral:   {neutral}</li>
+                <li className={css.statisticItem}> Bad:         {bad}</li>
+                <li className={css.statisticItem}> Total:       {total}</li>
+                <li className={css.statisticItem}> Positive feedback:   {positivePercentage}%</li>
+        </ul>
     );
+
 };
 
 
@@ -32,3 +25,5 @@ Statistics.propTypes = {
     total: PropTypes.number.isRequired,
     positivePercentage: PropTypes.number.isRequired, 
 };
+
+export default Statistics;
