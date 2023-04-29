@@ -1,0 +1,16 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;  
+}
+
+.title {
+    color: #303086;
+    font-size: 25px;
+    font-weight: 700;
+    font-style: oblique;
+    letter-spacing: 0.05em;
+    line-height: 1.5em;
+    margin-bottom: 25px;
+}
